@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Alura.LeilaoOnline.WebApp.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Alura.LeilaoOnline.WebApp.Dados
+namespace Alura.LeilaoOnline.WebApp.Dados.EFCore
 {
-    public class LeilaoDao
+    public class LeilaoDaoComEFCore : ILeilaoDao
     {
         AppDbContext _context;
 
-        public LeilaoDao()
+        public LeilaoDaoComEFCore()
         {
             _context = new AppDbContext();
         }
