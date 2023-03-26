@@ -7,24 +7,24 @@ namespace Alura.LeilaoOnline.WebApp.Services.Handlers
 {
 	public class DefaultProdutoService : IProdutoService
 	{
-		ILeilaoDao _dao;
+		ILeilaoDao _leilaoDao;
 		ICategoriaDao _categoriaDao;
 
-		public DefaultProdutoService(ILeilaoDao dao, ICategoriaDao categoriaDao)
+		public DefaultProdutoService(ILeilaoDao leilaoDao, ICategoriaDao categoriaDao)
 		{
-			_dao = dao;
+			_leilaoDao = leilaoDao;
 			_categoriaDao = categoriaDao;
 		}
 
 		public Categoria ConsultaCategoriaPorIdComLeiloesEmPregao(int id)
 		{
-			return _categoriaDao.ConsultaCategoriaPorId(id);
+			return _categoriaDao.BuscarPorId(id);
 		}
 
 		public IEnumerable<CategoriaComInfoLeilao> ConsultaCategoriasComTotalDeLeiloesEmPregao()
 		{
 			return _categoriaDao
-				.ConsultaCategorias()
+				.BuscarTodos()
 				.Select(x => new CategoriaComInfoLeilao
 				{
 					Id = x.Id,
@@ -40,7 +40,7 @@ namespace Alura.LeilaoOnline.WebApp.Services.Handlers
 		{
 			var termoNormalized = termo.ToUpper();
 
-			return _dao.BuscarTodosLeiloes()
+			return _leilaoDao.BuscarTodos()
 				.Where(x =>
 				x.Titulo.ToUpper().Contains(termoNormalized) ||
 				x.Descricao.ToUpper().Contains(termoNormalized) ||
